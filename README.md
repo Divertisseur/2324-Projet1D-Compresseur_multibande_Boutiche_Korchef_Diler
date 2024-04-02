@@ -11,6 +11,8 @@ Schéma global du compresseur
 
 ![Compresseur_multibande](https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/97ba6d8a-4e32-46b3-9192-fc1ab5a3069d)
 
+Les entrées et les sorties seront en niveau ligne.
+
 -Compte rendu-
 02/04/2024 :
 Création du github et du cahier des charges, recherche des composants (potentiomètres, afficheur OLED), création du projet KiCAD.
