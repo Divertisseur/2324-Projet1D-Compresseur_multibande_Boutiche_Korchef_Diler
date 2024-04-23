@@ -16,3 +16,6 @@ Les entrées et les sorties seront en niveau ligne.
 -Compte rendu-
 02/04/2024 :
 Création du github et du cahier des charges, recherche des composants (potentiomètres, afficheur OLED), création du projet KiCAD.
+
+23/04/2024 :
+Objectifs de la séance : Création du PCB, recherche de code.
