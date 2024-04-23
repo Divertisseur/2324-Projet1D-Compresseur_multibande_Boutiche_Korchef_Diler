@@ -21,7 +21,13 @@ Création du github et du cahier des charges, recherche des composants (potentio
 Objectifs de la séance : Création du PCB, recherche de code, fin de recherche des composants.
 
 Composants choisis : 
- - Potentiomètres :
- - Knobs :
- - Afficheur OLED :
- - 
+
+Potentiomètre : https://fr.farnell.com/bourns/ptv09a-4020f-b103/potentiom-rotatif-10kohm-9mm-20/dp/2469524
+Nombre : 20
+
+Knob (noir) : https://fr.rs-online.com/web/p/boutons-et-cadrans-potentiometre/7777319
+Nombre : 20
+
+Afficheur OLED : https://fr.rs-online.com/web/p/afficheurs-oled/2543586?gb=s
+Nombre : 1
+
