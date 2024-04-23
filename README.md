@@ -18,7 +18,7 @@ Les entrées et les sorties seront en niveau ligne.
 Création du github et du cahier des charges, recherche des composants (potentiomètres, afficheur OLED), création du projet KiCAD.
 
 23/04/2024 :
-Objectifs de la séance : Création du PCB, recherche de code, fin de recherche des composants.
+Objectifs de la séance : Création du PCB, recherche de code, fin de recherche des composants, configration du .ioc STM32 Cube IDE.
 
 Composants choisis : 
 
@@ -31,3 +31,4 @@ Nombre : 20
 Afficheur OLED : https://fr.rs-online.com/web/p/afficheurs-oled/2543586?gb=s
 Nombre : 1
 
+configuration du .ioc : ajout des convertisseurs analogique/numérique pour la récupération des valeurs des potentiomètres.
