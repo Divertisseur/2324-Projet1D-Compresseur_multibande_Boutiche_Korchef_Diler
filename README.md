@@ -32,3 +32,6 @@ Afficheur OLED : https://fr.rs-online.com/web/p/afficheurs-oled/2543586?gb=s
 Nombre : 1
 
 configuration du .ioc : ajout des convertisseurs analogique/numérique pour la récupération des valeurs des potentiomètres.
+
+30/04/2024 : 
+Objectifs de la séance : définir les pins pour relier la nucléo avec les potentiomètres. Montage sur la board
