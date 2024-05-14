@@ -16,3 +16,26 @@ Les entrées et les sorties seront en niveau ligne.
 -Compte rendu-
 02/04/2024 :
 Création du github et du cahier des charges, recherche des composants (potentiomètres, afficheur OLED), création du projet KiCAD.
+
+23/04/2024 :
+Objectifs de la séance : Création du PCB, recherche de code, fin de recherche des composants, configration du .ioc STM32 Cube IDE.
+
+Composants choisis : 
+
+Potentiomètre : https://fr.farnell.com/bourns/ptv09a-4020f-b103/potentiom-rotatif-10kohm-9mm-20/dp/2469524
+Nombre : 20
+
+Knob (noir) : https://fr.rs-online.com/web/p/boutons-et-cadrans-potentiometre/7777319
+Nombre : 20
+
+Afficheur OLED : https://fr.rs-online.com/web/p/afficheurs-oled/2543586?gb=s
+Nombre : 1
+
+configuration du .ioc : ajout des convertisseurs analogique/numérique pour la récupération des valeurs des potentiomètres.
+
+30/04/2024 : 
+Objectifs de la séance : définir les pins pour relier la nucléo avec les potentiomètres. Montage sur la board
+
+
+14/05/2024 :
+Objectifs de la séance : Codage du filtre + entrées/sorties audio qui marchent, fréquence de coupure réglable par les potentiomètres. Faire marcher l'écran OLED.
