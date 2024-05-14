@@ -35,3 +35,7 @@ configuration du .ioc : ajout des convertisseurs analogique/numérique pour la r
 
 30/04/2024 : 
 Objectifs de la séance : définir les pins pour relier la nucléo avec les potentiomètres. Montage sur la board
+
+
+14/05/2024 :
+Objectifs de la séance : Codage du filtre + entrées/sorties audio qui marchent, fréquence de coupure réglable par les potentiomètres. Faire marcher l'écran OLED.
