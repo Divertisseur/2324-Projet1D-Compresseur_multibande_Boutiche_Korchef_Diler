@@ -59,7 +59,7 @@ How to use :
 
 4) Brancher un casque ou un HP en minijack sur le line out, et écouter en faisant varier les potentiomètres.
 
-Filtres implémentées dans RC_filter.h (filtres "fait-maison")
+Filtres implémentés dans RC_filter.h (filtres "fait-maison")
 FFT implémentée par la librairie "kiss_fftr.h"
 
    
