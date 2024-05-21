@@ -84,5 +84,5 @@ FFT implémentée par la librairie "kiss_fftr.h"
 Equations des filtres : 
 ![image](https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/1401828b-4d7c-481d-b62c-21ff5f9fb334)
 
-
+où y[n] est la sortie du filtre, x[n] l'échantillon en entrée, y[n-1] la sortie PRECEDENTE du filtre et x[n-1] l'entrée PRECEDENTE du filtre.
    
