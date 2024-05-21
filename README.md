@@ -63,7 +63,7 @@ Objectifs de la séance : Amélioration du filtre, ajout de gain entrée/sortie,
 
 
 FIN : 
-Pas terminé : codage du compresseur, soudure de tous les potentiomètres (pas grave puisque le compresseur n'est pas prêt de toute manière)
+Pas terminé : codage du compresseur, soudure de tous les potentiomètres pas finie par manque de temps.
 Terminé : Soudage de 4 potentiomètres liés au gain IN, gain OU, Fc premier filtre et FC du deuxième filtre.
 FFT qui marche avec affichage sur l'écran OLED.
 
