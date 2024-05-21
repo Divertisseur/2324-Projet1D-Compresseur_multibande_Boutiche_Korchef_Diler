@@ -81,4 +81,8 @@ How to use :
 Filtres implémentés dans RC_filter.h (filtres "fait-maison")
 FFT implémentée par la librairie "kiss_fftr.h"
 
+Equations des filtres : 
+![image](https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/1401828b-4d7c-481d-b62c-21ff5f9fb334)
+
+
    
