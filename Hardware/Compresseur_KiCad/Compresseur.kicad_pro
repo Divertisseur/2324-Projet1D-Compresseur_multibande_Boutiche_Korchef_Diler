@@ -487,6 +487,10 @@
     [
       "df7c0397-fad3-48af-8d4c-aea6c273407b",
       "f2-20kHz"
+    ],
+    [
+      "5d3271d6-92b5-49ee-9233-1d5bb6c1a663",
+      "Codec Audio"
     ]
   ],
   "text_variables": {}
