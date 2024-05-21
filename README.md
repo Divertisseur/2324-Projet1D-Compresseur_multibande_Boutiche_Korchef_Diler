@@ -14,12 +14,19 @@ Schéma global du compresseur
 Les entrées et les sorties seront en niveau ligne.
 
 Pinout de la carte nucleo : 
+
 <img width="427" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/1265ffaf-6c7a-4a66-9dc1-9a29857b378e">
+
 Les ADCs sont configurés en mode DMA avec le timer 1. Ils sont configurés en 12 bits.
+
 <img width="225" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/066c3e86-9809-43ee-afc9-6a95738f188d">
+
 Le DMA est aussi utilisé pour l'échange de données audio par le SAI.
+
 <img width="220" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/83315647-d8bf-4bf0-8be7-eeff2a401857">
+
 <img width="221" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/91caa9d7-0a57-4b1a-84a3-577283df656e">
+
 <img width="213" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/e86a3d23-f86f-46e2-a0eb-4dd5c5a85f3d">
 
 
