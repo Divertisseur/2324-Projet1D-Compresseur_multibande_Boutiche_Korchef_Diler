@@ -17,11 +17,11 @@ Pinout de la carte nucleo :
 
 <img width="427" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/1265ffaf-6c7a-4a66-9dc1-9a29857b378e">
 
-Les ADCs sont configurés en mode DMA avec le timer 1. Ils sont configurés en 12 bits.
+Les ADCs sont configurés en mode DMA avec le timer 1. Ils sont configurés en 12 bits. (les ADC sont utilisés seulement pour les potentiomètres, pas pour l'audio)
 
 <img width="225" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/066c3e86-9809-43ee-afc9-6a95738f188d">
 
-Le DMA est aussi utilisé pour l'échange de données audio par le SAI.
+Le DMA est aussi utilisé pour l'échange de données audio par le SAI. Le SAI est configuré avec une fréquence d'échantillonage de 48khz et une quantification de 24 bits.
 
 <img width="220" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/83315647-d8bf-4bf0-8be7-eeff2a401857">
 
