@@ -21,7 +21,7 @@ Les ADCs sont configurés en mode DMA avec le timer 1. Ils sont configurés en 1
 
 <img width="225" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/066c3e86-9809-43ee-afc9-6a95738f188d">
 
-Le DMA est aussi utilisé pour l'échange de données audio par le SAI. Le SAI est configuré avec une fréquence d'échantillonage de 48khz et une quantification de 24 bits.
+Le DMA est aussi utilisé pour l'échange de données audio par le SAI. Le SAI est configuré avec une fréquence d'échantillonage de 48khz et une quantification de 16 bits.
 
 <img width="220" alt="image" src="https://github.com/Divertisseur/2324-Projet1D-Compresseur_multibande_Boutiche_Korchef_Diler/assets/96353461/83315647-d8bf-4bf0-8be7-eeff2a401857">
 
