@@ -25,7 +25,6 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-#include "math.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -33,6 +32,9 @@
 #include "RCFilter.h"
 #include <string.h>
 #include "sgtl5000.h"
+#include "kiss_fftr.h"
+#include "oledprint.h"
+#include "math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,8 +44,11 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define SAI_TX_BUFFER_LENGTH (48*2)
-#define SAI_RX_BUFFER_LENGTH (48*2)
+#define SAI_TX_BUFFER_LENGTH 128
+#define SAI_RX_BUFFER_LENGTH 128
+#define N_FFT 128  // Number of FFT points
+#define OUTPUT_MAX 64.0f  // Desired maximum output value
+#define UCHAR_MAX 255.0f  // Maximum value for unsigned char
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -59,10 +64,15 @@ volatile uint16_t adcResultsDMA[13];
 const int adcChannelCount = sizeof(adcResultsDMA) / sizeof(adcResultsDMA[0]);
 volatile int adcConversionComplete = 0;
 uint8_t textLenght;
-h_RC_filter_t filter_1;
+h_RC_filter_t HPF;
+h_RC_filter_t LPF;
 static int16_t sai_tx_buffer[SAI_TX_BUFFER_LENGTH];
 static int16_t sai_rx_buffer[SAI_RX_BUFFER_LENGTH];
+unsigned char * FFT_array;
 int CutoffFreq;
+float gain_input;
+float gain_output;
+unsigned char output_magnitude[N_FFT/2 + 1];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -110,6 +120,54 @@ void HAL_SAI_TxCpltCallback(SAI_HandleTypeDef *hsai)
 		//printf("SAI interrupt TX.\n");
 	}
 }
+void compute_fft(const int16_t *input, unsigned char *output_magnitude) {
+    kiss_fftr_cfg cfg = kiss_fftr_alloc(N_FFT, 0, NULL, NULL);
+
+    if (!cfg) {
+        printf("Not enough memory for FFT configuration\n");
+        return;
+    }
+
+    // Allocate memory for input and output
+    kiss_fft_scalar in[N_FFT];
+    kiss_fft_cpx out[N_FFT/2 + 1];
+
+    // Convert int16_t input to kiss_fft_scalar (float)
+    for (int i = 0; i < N_FFT; i++) {
+        in[i] = (kiss_fft_scalar)input[i];
+    }
+
+    // Perform the FFT
+    kiss_fftr(cfg, in, out);
+
+    // Calculate the magnitude of the FFT
+    float max_magnitude = 0.0f;
+    float temp_magnitude[N_FFT/2 + 1];
+    for (int i = 0; i <= N_FFT/2; i++) {
+        temp_magnitude[i] = sqrtf(out[i].r * out[i].r + out[i].i * out[i].i);
+        if (temp_magnitude[i] > max_magnitude) {
+            max_magnitude = temp_magnitude[i];
+        }
+    }
+
+    // Normalize and scale the magnitudes to the range 0 to 255
+    if (max_magnitude > 0.0f) {
+        for (int i = 0; i <= N_FFT/2; i++) {
+            // Normalize to 0 to 64
+            float normalized = (temp_magnitude[i] / max_magnitude) * OUTPUT_MAX;
+            // Scale to 0 to 255
+            output_magnitude[i] = (unsigned char)((normalized / OUTPUT_MAX) * UCHAR_MAX);
+        }
+    } else {
+        // If max_magnitude is zero, set all outputs to zero
+        for (int i = 0; i <= N_FFT/2; i++) {
+            output_magnitude[i] = 0;
+        }
+    }
+
+    // Free the FFT configuration
+    free(cfg);
+}
 /* USER CODE END 0 */
 
 /**
@@ -148,12 +206,15 @@ int main(void)
   MX_TIM1_Init();
   MX_SAI2_Init();
   MX_I2C2_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart2, &uart2_data, 1);
   printf("\n-----------------------------------\nDemarrage du programme.\r\n");
   printf("Initialisation du SAI...\r\n");
   __HAL_SAI_ENABLE(&hsai_BlockA2);
   __HAL_SAI_ENABLE(&hsai_BlockB2);
+  //printf("Initalisation de l'afficheur OLED...\r\n");
+  //initOled();
   printf("Initialisation du codec\r\n");
 
   HAL_StatusTypeDef ret;
@@ -191,8 +252,9 @@ int main(void)
   }
 //  HAL_SAI_DisableRxMuteMode(&hsai_BlockA2);
   printf("SAI OK, initialisation du filtre...\n");
-// Démarrage du filtre à 1khz
-  RC_filter_init(&filter_1, 1000, 48000);
+// Démarrage des filtres
+  HPF_init(&HPF, 1000, 48000);
+  LPF_init(&LPF, 1000, 48000);
   HAL_TIM_Base_Start(&htim1);
 
   /* USER CODE END 2 */
@@ -211,20 +273,33 @@ int main(void)
 		 	  }
 	  adcConversionComplete = 0;
 	  int i;
-	  for (i=0; i<2; i++){
+	  for (i=1; i<2; i++){
 		  printf("Channel %d : %d\r\n", i, adcResultsDMA[i]);
 
 		  HAL_Delay(100);
 	  }
 	  //printf("Audio buffer (RX) first value : %d\n\r", sai_rx_buffer[0]);
-	  CutoffFreq = roundf(((adcResultsDMA[0] + 50)/4));
-	  RC_filter_init(&filter_1, CutoffFreq, 48000);
+	  CutoffFreq = roundf(((adcResultsDMA[3] + 50)/4));
+	  gain_input = adcResultsDMA[0]/4096; // Les potards varient de 0 à 4096 et on veut un gain entre 0 et 1
+	  gain_output = adcResultsDMA[1]/4096;
+	  //printf("gain output : %d\n", gain_output);
+	  LPF_init(&LPF, CutoffFreq, 48000);
+	  HPF_init(&HPF, CutoffFreq, 48000);
 	  if (rx_cplt_flag == 1){
 			for (int i = 0 ; i < SAI_RX_BUFFER_LENGTH ; i++)
 			{
-				sai_tx_buffer[i] = (uint16_t)RC_filter_update(&filter_1, sai_rx_buffer[i]);
+				// Gain en entrée
+				sai_rx_buffer[i] = sai_rx_buffer[i]*gain_input;
+				// Filtre
+				sai_tx_buffer[i] = (uint16_t)HPF_update(&HPF, sai_rx_buffer[i]);
+				sai_tx_buffer[i] = (uint16_t)LPF_update(&LPF, sai_tx_buffer[i]);
+				// Gain en sortie
+				sai_tx_buffer[i] = sai_tx_buffer[i]*gain_output;
 			}
 	  }
+	  // On fait la FFT
+	  compute_fft(sai_tx_buffer, output_magnitude);
+	  printSpect(output_magnitude);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
