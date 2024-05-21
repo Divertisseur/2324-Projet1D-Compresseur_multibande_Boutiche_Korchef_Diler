@@ -36,6 +36,26 @@ configuration du .ioc : ajout des convertisseurs analogique/numérique pour la r
 30/04/2024 : 
 Objectifs de la séance : définir les pins pour relier la nucléo avec les potentiomètres. Montage sur la board
 
-
 14/05/2024 :
 Objectifs de la séance : Codage du filtre + entrées/sorties audio qui marchent, fréquence de coupure réglable par les potentiomètres. Faire marcher l'écran OLED.
+
+21/05/2024 : 
+Objectifs de la séance : Amélioration du filtre, ajout de gain entrée/sortie, implémentation de la FFT avec l'écran oled pour l'affichage
+
+
+FIN : 
+Pas terminé : codage du compresseur, soudure de tous les potentiomètres (pas grave puisque le compresseur n'est pas prêt de toute manière)
+Terminé : Soudage de 4 potentiomètres liés au gain IN, gain OU, Fc premier filtre et FC du deuxième filtre.
+FFT qui marche avec affichage sur l'écran OLED.
+
+How to use : 
+1) Télécharger le code et le projet, brancher une carte NUCLEO L476 RG, compiler et transférer le programme dessus.
+2) Vérifier avec Tera Term ou autre logiciel que l'initialisation s'est bien passée, les messages suivants doivent être affichés :
+   -Initialisation du SAI
+   -Initialisation de l'afficheur OLED
+   -Initialisation du codec
+   -Initialisation du filtre
+3) Brancher une source audio sur le LINE IN en mini-jack
+
+4) Brancher un casque ou un HP en minijack sur le line out, et écouter en faisant varier les potentiomètres.
+   
