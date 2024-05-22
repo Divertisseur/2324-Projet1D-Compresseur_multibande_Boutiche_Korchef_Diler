@@ -40,7 +40,7 @@ Répartition des tâches :
 
 Ewen -> partie hardware,  kicad, soudures.
 
-Adbel -> Afficheur Oled, aide hardware.
+Adbel -> Afficheur Oled, aide hardware et software.
 
 Maël -> DSP (filtres, FFT, compresseur), programme principal.
 
