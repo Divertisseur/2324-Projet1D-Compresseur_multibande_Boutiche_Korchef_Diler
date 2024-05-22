@@ -35,6 +35,7 @@ Le DMA est aussi utilisé pour l'échange de données audio par le SAI. Le SAI e
 -Compte rendu-
 02/04/2024 :
 Création du github et du cahier des charges, recherche des composants (potentiomètres, afficheur OLED), création du projet KiCAD.
+
 Répartition des tâches : 
 Ewen -> partie hardware,  kicad, soudures.
 Adbel -> Afficheur Oled, aide hardware.
